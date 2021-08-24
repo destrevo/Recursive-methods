@@ -12,7 +12,6 @@ const filesystem = {
     }
 };
 
-
 let getFilenames = (fs) => {
     const allFiles = [];
     for (const identifier in fs){
@@ -23,9 +22,18 @@ let getFilenames = (fs) => {
         }
     } return allFiles
 }
+/////*Immediately Invoked Functions Executions*///
+/* Array.isArray([1, 2, 3]);  // true */
+console.log((function xS (fs){
+    const allFiles = [];
+    for(const file in fs){
+        Array.isArray(fs[file])? allFiles.push(...fs[file]): allFiles.push(...xS(fs[file]));
+    } return allFiles
+}(filesystem)))
 
-console.log(filesystem)
-console.log(getFilenames(filesystem))
+
+// console.log(filesystem)
+// console.log(getFilenames(filesystem))
 
 const myself = {
     name: 'Max',
@@ -51,20 +59,15 @@ const myself = {
       }
     ]
   };
-  
   function getFriendNames(person) {
     const collectedNames = [];
   
     if (!person.friends) {
       return [];
     }
-    
     for (const friend of person.friends) {
       collectedNames.push(friend.name);
       collectedNames.push(...getFriendNames(friend));
     }
-    
     return collectedNames;
-  }
-  
-  console.log(getFriendNames(myself));
+  }  console.log(getFriendNames(myself));
